@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { loginUser } from "../services/api";
+import { useNavigate } from "react-router-dom";
+import { loginUser, signupUser } from "../services/api";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({ email: "", name: "" });
+  const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,9 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
     }
   };
-  const signup = async (name, email, password) => {};
+  const signup = async (name, email, password) => {
+    await signupUser({ name, email, password });
+  };
   const logout = async () => {};
 
   const value = {
