@@ -1,25 +1,23 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
-// const UserAuth = {
-//   isLoggedIn: false,
-//   user: { name: "", enail: "" } | null,
-//   login: (email, password)=> Promise<void>,
-// signup: (name, email, password)=> Promise<void>
-// logout: ()=> Promise<void>;
-
-// };
+import { loginUser } from "../services/api";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ email: "", name: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    //fetch if the user's cookie is valid, if yes, skip login
+    // todo: check if user is logged in, if yes set user and isLoggedIn
   }, []);
 
-  const login = async (email, password) => {};
+  const login = async (email, password) => {
+    const data = await loginUser(email, password);
+    if (data) {
+      setUser({ email: data.email, name: data.name });
+      setIsLoggedIn(true);
+    }
+  };
   const signup = async (name, email, password) => {};
   const logout = async () => {};
 

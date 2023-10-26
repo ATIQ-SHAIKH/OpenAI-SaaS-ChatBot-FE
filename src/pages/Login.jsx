@@ -3,14 +3,25 @@ import { Box, Typography, Button } from "@mui/material";
 import { IoIosLogIn } from "react-icons/io";
 import CustomInput from "../components/shared/CustomInput";
 import Logo from "../../public/openai_saas_chatbot_logo.svg";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../components/context/AuthContext";
 
 const Login = () => {
-  const handleSubmit = (e) => {
+  const auth = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
-    console.log(email, password);
+    try {
+      toast.loading("Please wait...", { id: "login" });
+      await auth.login(email, password);
+      toast.success("Logged In.", { id: "login" });
+    } catch (e) {
+      console.log(e);
+      toast.error("Failed.", { id: "login" });
+    }
   };
 
   return (
