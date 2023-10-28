@@ -13,8 +13,6 @@ axios.defaults.baseURL = "http://localhost:8888/api";
 axios.defaults.withCredentials = true;
 
 const App = () => {
-  console.log(useAuth()?.isLoggedIn);
-
   return (
     <main>
       <Header />

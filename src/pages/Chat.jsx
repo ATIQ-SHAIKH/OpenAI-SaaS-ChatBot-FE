@@ -5,7 +5,6 @@ import { useAuth } from "../components/context/AuthContext";
 
 const Chat = () => {
   const auth = useAuth();
-  console.log(auth.user.name[0], auth?.user?.name.split(" ")[1][0]);
 
   return (
     <Box
