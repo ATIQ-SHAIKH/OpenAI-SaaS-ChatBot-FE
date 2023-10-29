@@ -5,9 +5,11 @@ import CustomInput from "../components/shared/CustomInput";
 import Logo from "../../public/openai_saas_chatbot_logo.svg";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../components/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const Login = () => {
       toast.loading("Please wait...", { id: "login" });
       await auth.login(email, password);
       toast.success("Logged In.", { id: "login" });
+      return navigate("/chat");
     } catch (e) {
       toast.error("Failed.", { id: "login" });
     }

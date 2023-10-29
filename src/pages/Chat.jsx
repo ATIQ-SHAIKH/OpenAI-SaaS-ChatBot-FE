@@ -1,7 +1,16 @@
 import React from "react";
-import { Box, Avatar, Typography, Button } from "@mui/material";
+import { Box, Avatar, Typography, Button, IconButton } from "@mui/material";
+import { IoMdSend } from "react-icons/io";
 import { red } from "@mui/material/colors";
 import { useAuth } from "../components/context/AuthContext";
+import ChatItem from "../components/chat/ChatItem";
+
+const chatMessages = [
+  { role: "user", content: "Hi" },
+  { role: "assistant", content: "Hello." },
+  { role: "user", content: "How are you doing?" },
+  { role: "assistant", content: "I am doing great, what about you?" },
+];
 
 const Chat = () => {
   const auth = useAuth();
@@ -103,7 +112,37 @@ const Chat = () => {
             overflowY: "auto",
             scrollBehavior: "smooth",
           }}
-        ></Box>
+        >
+          {chatMessages.map((chat) => (
+            <ChatItem msg={chat.content} role={chat.role} />
+          ))}
+        </Box>
+        <div
+          style={{
+            width: "100%",
+            padding: "20px",
+            borderRadius: 8,
+            backgroundColor: "rgb(17, 27, 39)",
+            display: "flex",
+            margin: "auto",
+          }}
+        >
+          <input
+            type="text"
+            style={{
+              width: "100%",
+              backgroundColor: "transparent",
+              padding: "10px",
+              border: "none",
+              outline: "none",
+              color: "white",
+              fontSize: "20px",
+            }}
+          />
+          <IconButton sx={{ ml: "auto", color: "white" }}>
+            <IoMdSend />
+          </IconButton>
+        </div>
       </Box>
     </Box>
   );

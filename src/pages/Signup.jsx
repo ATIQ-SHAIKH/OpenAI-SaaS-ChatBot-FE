@@ -13,9 +13,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name");
+    const firstName = formData.get("first_name");
+    const lastName = formData.get("last_name");
     const email = formData.get("email");
     const password = formData.get("password");
+    const name = `${firstName.trim()} ${lastName.trim()}`;
     try {
       toast.loading("Signing Up", { id: "signup" });
       await auth.signup(name, email, password);
@@ -69,7 +71,8 @@ const Signup = () => {
             >
               Signup
             </Typography>
-            <CustomizedInput type="text" name="name" label="Name" />
+            <CustomizedInput type="text" name="first_name" label="First Name" />
+            <CustomizedInput type="text" name="last_name" label="Last Name" />
             <CustomizedInput type="email" name="email" label="Email" />
             <CustomizedInput type="password" name="password" label="Password" />
             <Button
